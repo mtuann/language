@@ -29,9 +29,9 @@ export default function Layout() {
                         <Link to="/english" className={`btn ${location.pathname.includes('/english') ? 'btn-secondary' : 'btn-ghost'}`}>
                             English
                         </Link>
-                        <button className="btn btn-ghost" disabled title="Coming Soon">
+                        <Link to="/chinese" className={`btn ${location.pathname.includes('/chinese') ? 'btn-secondary' : 'btn-ghost'}`}>
                             Chinese
-                        </button>
+                        </Link>
                     </nav>
                 </header>
             </div>
