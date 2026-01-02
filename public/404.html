@@ -5,18 +5,26 @@
     <meta charset="utf-8">
     <title>Mtuann Language</title>
     <script type="text/javascript">
-        // Simple redirect: redirect all non-root URLs to the root
-        // Let React Router handle client-side navigation
+        // Preserve the current path when redirecting
+        // Redirects to index.html with path as query parameter
+        // The script in index.html will convert it back to clean URL
         var l = window.location;
-        var basePath = '/language';
+        var pathSegmentsToKeep = 1; // Keep /language
+        var path = l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/');
         
-        // Redirect to root
-        l.replace(l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + basePath + '/');
+        // Redirect to index.html with path preserved
+        l.replace(
+            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+            l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/index.html?p=/' +
+            path.replace(/&/g, '~and~') +
+            (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+            l.hash
+        );
     </script>
 </head>
 
 <body>
-    <p>Redirecting to home...</p>
+    <p>Redirecting...</p>
 </body>
 
 </html>
