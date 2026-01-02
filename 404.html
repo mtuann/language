@@ -5,26 +5,18 @@
     <meta charset="utf-8">
     <title>Mtuann Language</title>
     <script type="text/javascript">
-        // GitHub Pages SPA redirect - Modified to use clean URLs
-        // Redirects to index.html with path preserved via query parameter
-        // The script in index.html will convert it back to a clean URL
-        var pathSegmentsToKeep = 1;
+        // Simple redirect: redirect all non-root URLs to the root
+        // Let React Router handle client-side navigation
         var l = window.location;
-        var path = l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/');
+        var basePath = '/language';
         
-        // Redirect to index.html with path as query parameter
-        // The index.html script will convert ?p=/chinese back to /language/chinese
-        l.replace(
-            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-            l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/index.html?p=/' +
-            path.replace(/&/g, '~and~') +
-            (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-            l.hash
-        );
+        // Redirect to root
+        l.replace(l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + basePath + '/');
     </script>
 </head>
 
 <body>
+    <p>Redirecting to home...</p>
 </body>
 
 </html>
