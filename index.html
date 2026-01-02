@@ -18,10 +18,16 @@
         var path = l.search.slice(3).split('&')[0].replace(/~and~/g, '&');
         // Get the base path (everything before /index.html)
         var basePath = l.pathname.replace('/index.html', '');
-        // Construct the clean URL
-        var newPath = basePath + (path || '/') + (l.hash || '');
+        // Construct the clean URL - ensure path starts with /
+        var cleanPath = path.startsWith('/') ? path : '/' + path;
+        var newPath = basePath + cleanPath + (l.hash || '');
         // Immediately replace the URL before React Router sees it
-        window.history.replaceState(null, null, newPath);
+        // Use location.replace to ensure it happens before any scripts load
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, null, newPath);
+        } else {
+          window.location.replace(newPath);
+        }
       }
     })();
   </script>
