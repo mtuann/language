@@ -9,19 +9,21 @@
   <!-- Start Single Page Apps for GitHub Pages -->
   <script type="text/javascript">
     // Convert ?p=/chinese back to clean URL /language/chinese
-    (function (l) {
-      if (l.search[1] === '/') {
-        var decoded = l.search.slice(1).split('&').map(function (s) {
-          return s.replace(/~and~/g, '&')
-        }).join('?');
+    // This MUST run synchronously before React Router loads
+    (function () {
+      var l = window.location;
+      // Check if we have ?p=/path format (from 404.html redirect)
+      if (l.search && l.search.indexOf('?p=') === 0) {
+        // Extract the path from ?p=/chinese
+        var path = l.search.slice(3).split('&')[0].replace(/~and~/g, '&');
         // Get the base path (everything before /index.html)
         var basePath = l.pathname.replace('/index.html', '');
-        // Replace the URL with the clean path (basePath + decoded path)
-        window.history.replaceState(null, null,
-          basePath + decoded + l.hash
-        );
+        // Construct the clean URL
+        var newPath = basePath + (path || '/') + (l.hash || '');
+        // Immediately replace the URL before React Router sees it
+        window.history.replaceState(null, null, newPath);
       }
-    }(window.location))
+    })();
   </script>
   <!-- End Single Page Apps for GitHub Pages -->
 </head>
