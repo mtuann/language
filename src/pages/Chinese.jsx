@@ -214,50 +214,85 @@ export default function Chinese() {
     const currentQuiz = quizQueue[quizIndex];
     const masteredCount = getMasteredCount();
 
+    // Get header text based on view mode
+    const getHeaderContent = () => {
+        switch (viewMode) {
+            case VIEW_MODES.PRONUNCIATION:
+                return {
+                    title: 'Hướng Dẫn Phát Âm Tiếng Trung',
+                    description: 'Học cách phát âm các âm tiết tiếng Trung với hướng dẫn chi tiết về vị trí lưỡi, hình dạng miệng và so sánh với tiếng Việt'
+                };
+            case VIEW_MODES.PROGRESS:
+                return {
+                    title: 'Tiến Trình Học Tập',
+                    description: 'Xem lại các bộ thủ đã thuộc và chưa thuộc'
+                };
+            case VIEW_MODES.FLASHCARD:
+                return {
+                    title: 'Thẻ Ghi Nhớ Bộ Thủ',
+                    description: 'Luyện tập ghi nhớ các bộ thủ tiếng Trung'
+                };
+            case VIEW_MODES.QUIZ:
+                return {
+                    title: 'Kiểm Tra Bộ Thủ',
+                    description: 'Kiểm tra kiến thức về các bộ thủ tiếng Trung'
+                };
+            default:
+                return {
+                    title: 'Học Bộ Thủ Tiếng Trung',
+                    description: 'Khám phá các bộ thủ cơ bản và ví dụ từ vựng tiếng Trung'
+                };
+        }
+    };
+
+    const headerContent = getHeaderContent();
+
     return (
         <div className="container" style={{ paddingBottom: '4rem' }}>
             <div style={{ maxWidth: '1200px', margin: '4rem auto 3rem' }}>
-                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                    <h1 style={{ marginBottom: '1rem' }}>Học Bộ Thủ Tiếng Trung</h1>
-                    <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)' }}>
-                        Khám phá các bộ thủ cơ bản và ví dụ từ vựng tiếng Trung
-                    </p>
-                    {masteredCount > 0 && (
-                        <div style={{ 
-                            marginTop: '1rem', 
-                            display: 'inline-flex', 
-                            alignItems: 'center', 
-                            gap: '0.75rem',
-                            padding: '0.5rem 1rem',
-                            background: 'var(--primary-light)',
-                            borderRadius: '999px',
-                            color: 'var(--primary)',
-                            fontWeight: 600
-                        }}>
-                            <Award size={18} />
-                            <span>Đã thuộc: {masteredCount} / {radicalsData.length} bộ thủ</span>
-                            <button
-                                onClick={resetProgress}
-                                style={{
-                                    background: 'transparent',
-                                    border: 'none',
-                                    color: 'var(--primary)',
-                                    cursor: 'pointer',
-                                    padding: '0.25rem',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    borderRadius: '4px',
-                                    transition: 'background 0.2s'
-                                }}
-                                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(99, 102, 241, 0.1)'}
-                                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                                title="Xóa tiến trình"
-                            >
-                                <Trash2 size={14} />
-                            </button>
-                        </div>
-                    )}
-                </div>
+                {viewMode !== VIEW_MODES.PRONUNCIATION && viewMode !== VIEW_MODES.PROGRESS && (
+                    <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                        <h1 style={{ marginBottom: '1rem' }}>{headerContent.title}</h1>
+                        <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)' }}>
+                            {headerContent.description}
+                        </p>
+                        {masteredCount > 0 && (
+                            <div style={{ 
+                                marginTop: '1rem', 
+                                display: 'inline-flex', 
+                                alignItems: 'center', 
+                                gap: '0.75rem',
+                                padding: '0.5rem 1rem',
+                                background: 'var(--primary-light)',
+                                borderRadius: '999px',
+                                color: 'var(--primary)',
+                                fontWeight: 600
+                            }}>
+                                <Award size={18} />
+                                <span>Đã thuộc: {masteredCount} / {radicalsData.length} bộ thủ</span>
+                                <button
+                                    onClick={resetProgress}
+                                    style={{
+                                        background: 'transparent',
+                                        border: 'none',
+                                        color: 'var(--primary)',
+                                        cursor: 'pointer',
+                                        padding: '0.25rem',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        borderRadius: '4px',
+                                        transition: 'background 0.2s'
+                                    }}
+                                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(99, 102, 241, 0.1)'}
+                                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                                    title="Xóa tiến trình"
+                                >
+                                    <Trash2 size={14} />
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* Mode Selector */}
                 <div style={{ 
