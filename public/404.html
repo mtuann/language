@@ -5,16 +5,19 @@
     <meta charset="utf-8">
     <title>Mtuann Language</title>
     <script type="text/javascript">
-        // Single Page Apps for GitHub Pages
-        // https://github.com/rafgraph/spa-github-pages
-        // This script handles the redirection for deep links
+        // GitHub Pages SPA redirect - Modified to use clean URLs
+        // Redirects to index.html with path preserved via query parameter
+        // The script in index.html will convert it back to a clean URL
         var pathSegmentsToKeep = 1;
-
         var l = window.location;
+        var path = l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/');
+        
+        // Redirect to index.html with path as query parameter
+        // The index.html script will convert ?p=/chinese back to /language/chinese
         l.replace(
             l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-            l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?p=/' +
-            l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+            l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/index.html?p=/' +
+            path.replace(/&/g, '~and~') +
             (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
             l.hash
         );
