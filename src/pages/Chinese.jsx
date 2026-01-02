@@ -24,7 +24,7 @@ const FILTER_MODES = {
 };
 
 export default function Chinese() {
-    const [viewMode, setViewMode] = useState(VIEW_MODES.BROWSE);
+    const [viewMode, setViewMode] = useState(VIEW_MODES.PRONUNCIATION);
     const [filterMode, setFilterMode] = useState(FILTER_MODES.ALL);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedRadical, setSelectedRadical] = useState(null);
@@ -239,8 +239,8 @@ export default function Chinese() {
                 };
             default:
                 return {
-                    title: 'Học Bộ Thủ Tiếng Trung',
-                    description: 'Khám phá các bộ thủ cơ bản và ví dụ từ vựng tiếng Trung'
+                    title: 'Học Tiếng Trung',
+                    description: 'Khám phá bộ thủ, học phát âm và ví dụ từ vựng tiếng Trung'
                 };
         }
     };
@@ -303,11 +303,18 @@ export default function Chinese() {
                     justifyContent: 'center'
                 }}>
                     <button
+                        onClick={() => setViewMode(VIEW_MODES.PRONUNCIATION)}
+                        className={`btn ${viewMode === VIEW_MODES.PRONUNCIATION ? 'btn-primary' : 'btn-secondary'}`}
+                    >
+                        <Volume2 size={18} />
+                        Phát Âm
+                    </button>
+                    <button
                         onClick={() => setViewMode(VIEW_MODES.BROWSE)}
                         className={`btn ${viewMode === VIEW_MODES.BROWSE ? 'btn-primary' : 'btn-secondary'}`}
                     >
                         <BookOpen size={18} />
-                        Duyệt
+                        Bộ Thủ
                     </button>
                     <button
                         onClick={() => setViewMode(VIEW_MODES.FLASHCARD)}
@@ -322,13 +329,6 @@ export default function Chinese() {
                     >
                         <Zap size={18} />
                         Kiểm Tra
-                    </button>
-                    <button
-                        onClick={() => setViewMode(VIEW_MODES.PRONUNCIATION)}
-                        className={`btn ${viewMode === VIEW_MODES.PRONUNCIATION ? 'btn-primary' : 'btn-secondary'}`}
-                    >
-                        <Volume2 size={18} />
-                        Phát Âm
                     </button>
                     <button
                         onClick={() => setViewMode(VIEW_MODES.PROGRESS)}
@@ -360,7 +360,7 @@ export default function Chinese() {
                         className={`btn ${filterMode === FILTER_MODES.TOP50 ? 'btn-secondary' : 'btn-ghost'}`}
                         style={{ fontSize: '0.875rem' }}
                     >
-                        Top 50
+                        Top 62
                     </button>
                     <button
                         onClick={() => setFilterMode(FILTER_MODES.REMAINING)}
@@ -682,6 +682,7 @@ export default function Chinese() {
                             {filteredRadicals.map(radical => (
                                 <div
                                     key={radical.id}
+                                    id={`radical-${radical.id}`}
                                     className="card"
                                     style={{
                                         cursor: 'pointer',
@@ -742,6 +743,16 @@ export default function Chinese() {
                                                     fontWeight: 600
                                                 }}>
                                                     HSK {radical.hskLevel}
+                                                </span>
+                                                <span style={{
+                                                    fontSize: '0.75rem',
+                                                    padding: '0.25rem 0.5rem',
+                                                    background: 'var(--primary-light)',
+                                                    borderRadius: '4px',
+                                                    color: 'var(--primary)',
+                                                    fontWeight: 600
+                                                }}>
+                                                    ID: {radical.id}
                                                 </span>
                                             </div>
                                             <p style={{ 
@@ -1285,6 +1296,7 @@ export default function Chinese() {
                                         {filteredMastered.map(radical => (
                                             <div
                                                 key={radical.id}
+                                                id={`radical-${radical.id}`}
                                                 className="card"
                                                 style={{
                                                     border: '2px solid var(--success)',
@@ -1327,6 +1339,16 @@ export default function Chinese() {
                                                                 fontWeight: 600
                                                             }}>
                                                                 HSK {radical.hskLevel}
+                                                            </span>
+                                                            <span style={{
+                                                                fontSize: '0.75rem',
+                                                                padding: '0.25rem 0.5rem',
+                                                                background: 'var(--primary-light)',
+                                                                borderRadius: '4px',
+                                                                color: 'var(--primary)',
+                                                                fontWeight: 600
+                                                            }}>
+                                                                ID: {radical.id}
                                                             </span>
                                                         </div>
                                                         <p style={{ 
@@ -1442,6 +1464,7 @@ export default function Chinese() {
                                         {filteredNonMastered.map(radical => (
                                             <div
                                                 key={radical.id}
+                                                id={`radical-${radical.id}`}
                                                 className="card"
                                                 style={{
                                                     border: '1px solid var(--border-color)',
@@ -1484,6 +1507,16 @@ export default function Chinese() {
                                                                 fontWeight: 600
                                                             }}>
                                                                 HSK {radical.hskLevel}
+                                                            </span>
+                                                            <span style={{
+                                                                fontSize: '0.75rem',
+                                                                padding: '0.25rem 0.5rem',
+                                                                background: 'var(--primary-light)',
+                                                                borderRadius: '4px',
+                                                                color: 'var(--primary)',
+                                                                fontWeight: 600
+                                                            }}>
+                                                                ID: {radical.id}
                                                             </span>
                                                         </div>
                                                         <p style={{ 
