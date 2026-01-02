@@ -6,32 +6,6 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mtuann Language</title>
-  <!-- Start Single Page Apps for GitHub Pages -->
-  <script type="text/javascript">
-    // Convert ?p=/chinese back to clean URL /language/chinese
-    // This MUST run synchronously before React Router loads
-    (function () {
-      var l = window.location;
-      // Check if we have ?p=/path format (from 404.html redirect)
-      if (l.search && l.search.indexOf('?p=') === 0) {
-        // Extract the path from ?p=/chinese
-        var path = l.search.slice(3).split('&')[0].replace(/~and~/g, '&');
-        // Get the base path (everything before /index.html)
-        var basePath = l.pathname.replace('/index.html', '');
-        // Construct the clean URL - ensure path starts with /
-        var cleanPath = path.startsWith('/') ? path : '/' + path;
-        var newPath = basePath + cleanPath + (l.hash || '');
-        // Immediately replace the URL before React Router sees it
-        // Use location.replace to ensure it happens before any scripts load
-        if (window.history && window.history.replaceState) {
-          window.history.replaceState(null, null, newPath);
-        } else {
-          window.location.replace(newPath);
-        }
-      }
-    })();
-  </script>
-  <!-- End Single Page Apps for GitHub Pages -->
 </head>
 
 <body>
